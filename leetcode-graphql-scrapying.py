@@ -82,22 +82,24 @@ algorithms_problems_json = json.loads(algorithms_problems_json)
 
 links = []
 for child in algorithms_problems_json["stat_status_pairs"]:
-        # Only process free problems
-        if not child["paid_only"]:
-            question__title_slug = child["stat"]["question__title_slug"]
-            question__article__slug = child["stat"]["question__article__slug"]
-            question__title = child["stat"]["question__title"]
-            frontend_question_id = child["stat"]["frontend_question_id"]
-            difficulty = child["difficulty"]["level"]
-            links.append((question__title_slug, difficulty, frontend_question_id, question__title, question__article__slug))
-            
+    # Only process free problems
+    if not child["paid_only"]:
+        question__title_slug = child["stat"]["question__title_slug"]
+        question__article__slug = child["stat"]["question__article__slug"]
+        question__title = child["stat"]["question__title"]
+        frontend_question_id = child["stat"]["frontend_question_id"]
+        difficulty = child["difficulty"]["level"]
+        links.append((question__title_slug, difficulty, frontend_question_id,
+                      question__title, question__article__slug))
+
 links = sorted(links, key=lambda x: (x[2]))
 
 url = 'https://leetcode.com/graphql'
 
-for title_slug, difficulty, question_id, question_title, article_slug in tqdm(links):
+for title_slug, difficulty, question_id, question_title, article_slug in tqdm(
+        links):
     variables = {"titleSlug": title_slug}
-    r = requests.post(url, json={'query': query , 'variables': variables})
+    r = requests.post(url, json={'query': query, 'variables': variables})
     print(r.status_code)
     res = json.loads(r.text)
 
