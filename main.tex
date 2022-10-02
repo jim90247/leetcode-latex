@@ -4,7 +4,10 @@
 %
 \documentclass[]{article}
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
+\usepackage{libertinus}
+\usepackage{libertinust1math}
+\usepackage{inconsolata}
+\renewcommand{\familydefault}{\sfdefault}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -79,6 +82,7 @@ breaklines=true
 \date{}
 
 \begin{document}
+\setlength{\columnsep}{3em}
 \begin{multicols*}{2}
 \input{index.tex}
 \end{multicols*}
